@@ -13,9 +13,14 @@ export class DetailsComponent implements OnInit {
 
   user$: Object;
 
-  constructor(private data: DataService, private route: ActivatedRoute) { }
+  constructor(private data: DataService, private route: ActivatedRoute) { 
+    this.route.params.subscribe( params => this.user$ = params.id ) //grab parameter from url
+  }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.data.getUser(this.user$).subscribe(
+      data => this.user$ = data
+    )
   }
 
 }
